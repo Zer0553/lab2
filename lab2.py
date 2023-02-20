@@ -13,19 +13,19 @@ def words(n):
 
 
 with open('test.txt', 'r') as f:
-    a = f.readline().split()
+    b = f.readlines()
+    a = []
+    for i in b:
+        for j in i.split():
+            a.append(j)
     if not a:
         print('Файл пуст, пожалуйста выберите другой файл')
         quit()
     else:
         for i in a:
-            r = re.findall(r'[13579]\d+', i)
-            even = 0
-            for j in r:
-                if int(j) % 2 == 0:
-                    even += 1
-            if even <= 2:
-                numbers.append(j)
+            r = re.fullmatch(r'[13579]\B[13579]*\B[24680]?\B[13579]*\B[24680]?([13579]*)|(\B[24680]?)', i)
+            if r:
+                numbers.append(i)
         if not numbers:
             print('Нет подходящих чисел')
             quit()
@@ -38,8 +38,7 @@ with open('test.txt', 'r') as f:
                 for j in i:
                     if int(j) % 2 == 0:
                         even += 1
-                        if words(int(j)) not in answer:
-                            answer.append(words(int(j)))
+                        answer.append(words(int(j)))
                 if even != 0:
                     p += ' -'
                 print(p, *answer)
