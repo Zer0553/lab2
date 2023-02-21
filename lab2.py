@@ -30,7 +30,6 @@ with open('test.txt', 'r') as f:
             print('Нет подходящих чисел')
             quit()
         else:
-            print(numbers)
             for i in numbers:
                 even = 0
                 p = i + ' ' + words(int(i[0]))
@@ -38,7 +37,8 @@ with open('test.txt', 'r') as f:
                 for j in i:
                     if int(j) % 2 == 0:
                         even += 1
-                        answer.append(words(int(j)))
+                        if words(int(j)) not in answer:
+                            answer.append(words(int(j)))
                 if even != 0:
                     p += ' -'
                 print(p, *answer)
